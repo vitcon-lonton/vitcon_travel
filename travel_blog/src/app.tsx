@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -8,7 +9,7 @@
  * @format
  */
 
-import React from 'react';
+import React from 'react'
 import {
   SafeAreaView,
   StyleSheet,
@@ -16,7 +17,7 @@ import {
   View,
   Text,
   StatusBar,
-} from 'react-native';
+} from 'react-native'
 
 import {
   Header,
@@ -24,9 +25,9 @@ import {
   Colors,
   DebugInstructions,
   ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+} from 'react-native/Libraries/NewAppScreen'
 
-declare var global: {HermesInternal: null | {}};
+declare let global: { HermesInternal: null | {} }
 
 const App = () => {
   return (
@@ -73,37 +74,16 @@ const App = () => {
         </ScrollView>
       </SafeAreaView>
     </>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  body: {
+    backgroundColor: Colors.white,
   },
   engine: {
     position: 'absolute',
     right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
   },
   footer: {
     color: Colors.dark,
@@ -113,6 +93,27 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     textAlign: 'right',
   },
-});
+  highlight: {
+    fontWeight: '700',
+  },
+  scrollView: {
+    backgroundColor: Colors.lighter,
+  },
+  sectionContainer: {
+    marginTop: 32,
+    paddingHorizontal: 24,
+  },
+  sectionDescription: {
+    color: Colors.dark,
+    fontSize: 18,
+    fontWeight: '400',
+    marginTop: 8,
+  },
+  sectionTitle: {
+    color: Colors.black,
+    fontSize: 24,
+    fontWeight: '600',
+  },
+})
 
-export default App;
+export default App
