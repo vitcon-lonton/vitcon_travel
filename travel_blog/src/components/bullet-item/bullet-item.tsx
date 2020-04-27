@@ -1,7 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react"
-import { View, ViewStyle, ImageStyle, TextStyle } from "react-native"
+import {
+  View, ViewStyle,
+  TextStyle
+  // ,ImageStyle
+} from "react-native"
 import { Text } from "../text/text"
-import { Icon } from "../icon/icon"
+// import { Icon } from '@ant-design/react-native'
 import { spacing } from "../../theme"
 
 const BULLET_ITEM: ViewStyle = {
@@ -11,14 +16,14 @@ const BULLET_ITEM: ViewStyle = {
   borderBottomWidth: 1,
   borderBottomColor: "#3A3048",
 }
-const BULLET_CONTAINER: ViewStyle = {
-  marginRight: spacing[4] - 1,
-  marginTop: spacing[2],
-}
-const BULLET: ImageStyle = {
-  width: 8,
-  height: 8,
-}
+// const BULLET_CONTAINER: ViewStyle = {
+//   marginRight: spacing[4] - 1,
+//   marginTop: spacing[2],
+// }
+// const BULLET: ImageStyle = {
+//   width: 8,
+//   height: 8,
+// }
 const BULLET_TEXT: TextStyle = {
   flex: 1,
   fontFamily: "Montserrat-Regular",
@@ -34,7 +39,7 @@ export interface BulletItemProps {
 export function BulletItem(props: BulletItemProps) {
   return (
     <View style={BULLET_ITEM}>
-      <Icon icon="bullet" containerStyle={BULLET_CONTAINER} style={BULLET} />
+      {/* <Icon name="bullet" containerStyle={BULLET_CONTAINER} style={BULLET} /> */}
       <Text style={BULLET_TEXT} text={props.text} />
     </View>
   )

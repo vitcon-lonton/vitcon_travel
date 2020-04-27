@@ -1,22 +1,28 @@
 import * as React from "react"
 import { View, ViewStyle, TextStyle } from "react-native"
-import { HeaderProps } from "./header.props"
+import { HeaderPrimaryProps } from "./header-primary.props"
 import { Text } from "../text/text"
-import { Icon } from '@ant-design/react-native'
+import { Icon } from "@ant-design/react-native"
 import { Button } from "../button/button"
 import { spacing } from "../../theme"
-import { translate } from "../../i18n/"
+import { translate } from "../../i18n"
+import { palette } from "../../theme/palette"
 
 // static styles
 const ROOT: ViewStyle = {
   flexDirection: "row",
-  paddingHorizontal: spacing[4],
   alignItems: "center",
-  paddingTop: spacing[5],
-  paddingBottom: spacing[5],
   justifyContent: "flex-start",
+  paddingTop: spacing[3],
+  paddingBottom: spacing[4] + spacing[1],
+  paddingHorizontal: 0,
 }
-const TITLE: TextStyle = { textAlign: "center" }
+const TITLE: TextStyle = {
+  textAlign: "center",
+  fontSize: 20,
+  fontWeight: "600",
+  color: palette.black,
+}
 const TITLE_MIDDLE: ViewStyle = { flex: 1, justifyContent: "center" }
 const LEFT: ViewStyle = { width: 32 }
 const RIGHT: ViewStyle = { width: 32 }
@@ -24,7 +30,7 @@ const RIGHT: ViewStyle = { width: 32 }
 /**
  * Header that appears on many screens. Will hold navigation buttons and screen title.
  */
-export const Header: React.FunctionComponent<HeaderProps> = (props) => {
+export const HeaderPrimary: React.FunctionComponent<HeaderPrimaryProps> = (props) => {
   const {
     onLeftPress,
     onRightPress,
@@ -41,7 +47,7 @@ export const Header: React.FunctionComponent<HeaderProps> = (props) => {
     <View style={{ ...ROOT, ...style }}>
       {leftIcon ? (
         <Button preset="link" onPress={onLeftPress}>
-          <Icon name={leftIcon} />
+          <Icon name={leftIcon} color={palette.black} />
         </Button>
       ) : (
         <View style={LEFT} />
@@ -51,7 +57,7 @@ export const Header: React.FunctionComponent<HeaderProps> = (props) => {
       </View>
       {rightIcon ? (
         <Button preset="link" onPress={onRightPress}>
-          <Icon name={rightIcon} />
+          <Icon name={rightIcon} color={palette.black} />
         </Button>
       ) : (
         <View style={RIGHT} />

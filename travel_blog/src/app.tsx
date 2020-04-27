@@ -2,7 +2,7 @@ import React from "react"
 import { StatusBar } from "react-native"
 import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
-import { DemoScreen, WelcomeScreen } from "./screens"
+import { HomeScreen, WelcomeScreen, DemoScreen } from "./screens"
 
 declare let global: {HermesInternal: null | {}}
 
@@ -13,9 +13,10 @@ const App = () => {
     <>
       <NavigationContainer>
         <StatusBar barStyle="dark-content" />
-        <Stack.Navigator initialRouteName="welcome" headerMode="none">
+        <Stack.Navigator initialRouteName="home" headerMode="none">
           <Stack.Screen name="welcome" component={WelcomeScreen} />
           <Stack.Screen name="demo" component={DemoScreen} />
+          <Stack.Screen name="home" component={HomeScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
