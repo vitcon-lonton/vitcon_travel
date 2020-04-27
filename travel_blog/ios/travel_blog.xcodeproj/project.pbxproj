@@ -38,6 +38,8 @@
 		641C85C9B3AF412B90466361 /* Montserrat-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DDBDE45C25A4467595053786 /* Montserrat-SemiBoldItalic.ttf */; };
 		C80939BFB47948DE8B6D73CC /* Montserrat-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ECFA9EAF27A840A49DF36065 /* Montserrat-Thin.ttf */; };
 		311D39098826438B9045FC29 /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A817431B70024002A683D4AE /* Montserrat-ThinItalic.ttf */; };
+		E81CD42DF980493B877FB1FC /* antfill.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BBBEA6DAE0C142D3A4A0C8D0 /* antfill.ttf */; };
+		6C69E75514EA4879BAC1E20E /* antoutline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31D1B5252631461FAECB1DB7 /* antoutline.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +105,8 @@
 		DDBDE45C25A4467595053786 /* Montserrat-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "Montserrat-SemiBoldItalic.ttf"; path = "../src/theme/fonts/Montserrat-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		ECFA9EAF27A840A49DF36065 /* Montserrat-Thin.ttf */ = {isa = PBXFileReference; name = "Montserrat-Thin.ttf"; path = "../src/theme/fonts/Montserrat-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		A817431B70024002A683D4AE /* Montserrat-ThinItalic.ttf */ = {isa = PBXFileReference; name = "Montserrat-ThinItalic.ttf"; path = "../src/theme/fonts/Montserrat-ThinItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BBBEA6DAE0C142D3A4A0C8D0 /* antfill.ttf */ = {isa = PBXFileReference; name = "antfill.ttf"; path = "../node_modules/@ant-design/icons-react-native/fonts/antfill.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		31D1B5252631461FAECB1DB7 /* antoutline.ttf */ = {isa = PBXFileReference; name = "antoutline.ttf"; path = "../node_modules/@ant-design/icons-react-native/fonts/antoutline.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +260,8 @@
 				DDBDE45C25A4467595053786 /* Montserrat-SemiBoldItalic.ttf */,
 				ECFA9EAF27A840A49DF36065 /* Montserrat-Thin.ttf */,
 				A817431B70024002A683D4AE /* Montserrat-ThinItalic.ttf */,
+				BBBEA6DAE0C142D3A4A0C8D0 /* antfill.ttf */,
+				31D1B5252631461FAECB1DB7 /* antoutline.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -421,6 +427,8 @@
 				641C85C9B3AF412B90466361 /* Montserrat-SemiBoldItalic.ttf in Resources */,
 				C80939BFB47948DE8B6D73CC /* Montserrat-Thin.ttf in Resources */,
 				311D39098826438B9045FC29 /* Montserrat-ThinItalic.ttf in Resources */,
+				E81CD42DF980493B877FB1FC /* antfill.ttf in Resources */,
+				6C69E75514EA4879BAC1E20E /* antoutline.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
