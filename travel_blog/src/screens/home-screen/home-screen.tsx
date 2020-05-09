@@ -1,50 +1,44 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import * as React from "react"
-import { View, ViewStyle, TextStyle, FlatList } from "react-native"
-import { Screen, Text, HeaderPrimary } from "../../components"
-import { color, spacing } from "../../theme"
+import { View, ViewStyle, FlatList } from "react-native"
+import { Screen, HeaderPrimary, PostTile, HomeWallpaper } from "../../components"
+import { color } from "../../theme"
 import { PostItemFeed } from "../../components/post-item-feed/post-item-feed"
 import { PostUser } from "../../components/post-user/post-user"
 import { PostPagination } from "../../components/post-pagination/post-pagination"
+import { translate } from "../../i18n"
 
 const FULL: ViewStyle = { flex: 1 }
-const CONTAINER: ViewStyle = {
-  backgroundColor: color.transparent,
-  paddingHorizontal: spacing[4],
-}
-const TEXT: TextStyle = {
-  color: color.palette.white,
-  fontFamily: "Montserrat",
-}
-const BOLD: TextStyle = { fontWeight: "bold" }
-const HEADER: TextStyle = {}
 
-const TITLE_WRAPPER: TextStyle = {
-  ...TEXT,
-  textAlign: "center",
-}
-const TITLE: TextStyle = {
-  ...TEXT,
-  ...BOLD,
-  fontSize: 28,
-  lineHeight: 38,
-  textAlign: "center",
-}
-const ALMOST: TextStyle = {
-  ...TEXT,
-  ...BOLD,
-  fontSize: 26,
-  fontStyle: "italic",
+const BACKGROUND: ViewStyle = { backgroundColor: "#F2F2F2" }
+
+const FULL_PADDING: ViewStyle = { padding: 15, paddingTop: 0 }
+
+const LEFT_PADDING: ViewStyle = { paddingLeft: 15 }
+
+const POST_ITEM_WRAP: ViewStyle = { ...BACKGROUND, ...FULL_PADDING }
+
+const BOTTOM_HEADER_FLATLIST: ViewStyle = {
+  ...BACKGROUND,
+  marginTop: 15,
+  height: 20,
+  borderTopLeftRadius: 10,
+  borderTopRightRadius: 10,
 }
 
-const CONTENT: TextStyle = {
-  ...TEXT,
-  color: "#BAB6C8",
-  fontSize: 15,
-  lineHeight: 22,
-  marginBottom: spacing[5],
+const FOOTER_FLATLIST: ViewStyle = {
+  ...BACKGROUND,
+  height: 20,
+  borderBottomRightRadius: 25,
+  borderBottomLeftRadius: 25,
 }
+
+const ARROW_LEFT_ICON = { icon: "arrow-left", onPress: null }
+
+const SEARCH_ICON = { size: 18, icon: "search", onPress: null }
+
+const TITLE = { text: translate("homeScreen.news") }
 
 const URI =
   "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1024724898%2F0x0.jpg"
@@ -54,46 +48,29 @@ export interface HomeScreenProps {
 }
 
 export const HomeScreen: React.FunctionComponent<HomeScreenProps> = (props) => {
-  // const nextScreen = React.useMemo(() => () => props.navigation.navigate("demo"), [
-  //   props.navigation,
-  // ])
+  const nextScreen = React.useMemo(() => () => props.navigation.navigate("detail"), [
+    props.navigation,
+  ])
 
   return (
     <View style={FULL}>
-      <Screen style={CONTAINER} preset="fixed" backgroundColor={color.transparent}>
+      <HomeWallpaper text="World" />
+      <Screen unsafe preset="fixed" backgroundColor={color.transparent}>
         <HeaderPrimary
-          headerTx="homeScreen.news"
-          leftIcon="arrow-left"
-          rightIcon="search"
-          style={HEADER}
+          centerComponent={TITLE}
+          leftComponent={{ ...ARROW_LEFT_ICON, onPress: nextScreen }}
+          rightComponent={{ ...SEARCH_ICON, onPress: nextScreen }}
         />
 
         <FlatList
+          ListHeaderComponent={<ListHeaderComponent />}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(index) => `${index}`}
           data={[1, 2, 3, 4, 5]}
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          keyExtractor={(item, index) => index.toString()}
           renderItem={({ item, index }) => (
-            <View key={item + ""} style={{ paddingLeft: index === 0 ? 0 : 15 }}>
-              <PostItemFeed
-                uri={URI}
-                text="A cross-platform Tab View component for React Native."
-                subText="2 hours ago"
-              />
-            </View>
-          )}
-        />
-
-        <FlatList
-          data={[1, 2, 3, 4, 5]}
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          keyExtractor={(index) => index.toString()}
-          renderItem={({ item, index }) => (
-            <View key={`${index}`} style={{ paddingLeft: index === 0 ? 0 : 15 }}>
-              <PostUser
-                // eslint-disable-next-line no-template-curly-in-string
-                color={`#FF${index}533`}
+            <View key={`${index}`} style={POST_ITEM_WRAP}>
+              <PostTile
+                onPress={nextScreen}
                 uri={URI}
                 title="A cross-platform Tab View component for React Native."
                 postTime="2 hours ago"
@@ -101,26 +78,61 @@ export const HomeScreen: React.FunctionComponent<HomeScreenProps> = (props) => {
               />
             </View>
           )}
+          ListFooterComponent={<View style={FOOTER_FLATLIST} />}
         />
-
-        <PostPagination
-          uri={URI}
-          title="A cross-platform Tab View component for React Native."
-          postTime="2 hours ago"
-          name="Alexander III"
-        />
-        <Text style={TITLE_WRAPPER}>
-          <Text style={TITLE} text="Your new app, " />
-          <Text style={ALMOST} text="almost" />
-          <Text style={TITLE} text="!" />
-        </Text>
-        <Text style={TITLE} preset="header" tx="welcomeScreen.readyForLaunch" />
-
-        <Text style={CONTENT}>
-          For everyone else, this is where you'll see a live preview of your fully functioning app
-          using Ignite.
-        </Text>
       </Screen>
+    </View>
+  )
+}
+
+export interface ListHeaderComponent {}
+
+export const ListHeaderComponent: React.FunctionComponent<ListHeaderComponent> = (props) => {
+  return (
+    <View>
+      <View style={LEFT_PADDING}>
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={[1, 2, 3, 4, 5]}
+          keyExtractor={(index) => `${index}`}
+          renderItem={({ item, index }) => (
+            <PostItemFeed
+              key={`${item}`}
+              style={{ marginLeft: index === 0 ? 0 : 15 }}
+              uri={URI}
+              text="A cross-platform Tab View component for React Native."
+              subText="2 hours ago"
+            />
+          )}
+        />
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{ marginBottom: 20, marginTop: 20 }}
+          data={[1, 2, 3, 4, 5]}
+          keyExtractor={(index) => `${index}`}
+          renderItem={({ item, index }) => (
+            <PostUser
+              key={`${index}`}
+              style={{ marginLeft: index === 0 ? 0 : 15 }}
+              color={`#${(((1 << 24) * Math.random()) | 0).toString(16)}`}
+              uri={URI}
+              title="A cross-platform Tab View component for React Native."
+              postTime="2 hours ago"
+              name="Alexander III"
+            />
+          )}
+        />
+      </View>
+      <PostPagination
+        uri={URI}
+        title="A cross-platform Tab View component for React Native."
+        postTime="2 hours ago"
+        name="Alexander III"
+        style={FULL_PADDING}
+      />
+      <View style={BOTTOM_HEADER_FLATLIST} />
     </View>
   )
 }

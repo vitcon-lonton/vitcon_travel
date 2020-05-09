@@ -1,50 +1,33 @@
+/* eslint-disable react-native/no-color-literals */
+/* eslint-disable react-native/no-inline-styles */
 import * as React from "react"
 import { View, Image, ViewStyle, TextStyle, ImageStyle } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
-import { Button, Header, Screen, Text, Wallpaper } from "../../components"
+import { Button, Screen, Text, Wallpaper, HeaderPrimary } from "../../components"
 import { color, spacing } from "../../theme"
+import { translate } from "../../i18n"
+import { ScrollView } from "react-native-gesture-handler"
+import { Avatar } from "react-native-elements"
 const bowserLogo = require("./bowser.png")
 
-const FULL: ViewStyle = { flex: 1 }
-const CONTAINER: ViewStyle = {
-  backgroundColor: color.transparent,
-  paddingHorizontal: spacing[4],
+const ARROW_LEFT_ICON = { icon: "arrow-left", onPress: null, color: color.background }
+
+const SEARCH_ICON = { size: 18, icon: "search", onPress: null, color: color.background }
+
+const TITLE = {
+  text: translate("welcomeScreen.poweredBy"),
+  style: { color: color.background },
 }
+
+const HEADER = { borderBottomWidth: 0 }
+
+const FULL: ViewStyle = { flex: 1 }
+
 const TEXT: TextStyle = {
   color: color.palette.white,
   fontFamily: "Montserrat",
 }
 const BOLD: TextStyle = { fontWeight: "bold" }
-const HEADER: TextStyle = {
-  paddingTop: spacing[3],
-  paddingBottom: spacing[4] + spacing[1],
-  paddingHorizontal: 0,
-}
-const HEADER_TITLE: TextStyle = {
-  ...TEXT,
-  ...BOLD,
-  fontSize: 12,
-  lineHeight: 15,
-  textAlign: "center",
-  letterSpacing: 1.5,
-}
-const TITLE_WRAPPER: TextStyle = {
-  ...TEXT,
-  textAlign: "center",
-}
-const TITLE: TextStyle = {
-  ...TEXT,
-  ...BOLD,
-  fontSize: 28,
-  lineHeight: 38,
-  textAlign: "center",
-}
-const ALMOST: TextStyle = {
-  ...TEXT,
-  ...BOLD,
-  fontSize: 26,
-  fontStyle: "italic",
-}
+
 const BOWSER: ImageStyle = {
   alignSelf: "center",
   marginVertical: spacing[5],
@@ -58,62 +41,105 @@ const CONTENT: TextStyle = {
   marginBottom: spacing[5],
 }
 const CONTINUE: ViewStyle = {
-  paddingVertical: spacing[4],
-  paddingHorizontal: spacing[4],
+  flex: 1,
+  margin: 10,
+  paddingVertical: spacing[2],
+  paddingHorizontal: spacing[2],
   backgroundColor: "#5D2555",
 }
 const CONTINUE_TEXT: TextStyle = {
   ...TEXT,
   ...BOLD,
-  fontSize: 13,
-  letterSpacing: 2,
-}
-const FOOTER: ViewStyle = { backgroundColor: "#20162D" }
-const FOOTER_CONTENT: ViewStyle = {
-  paddingVertical: spacing[4],
-  paddingHorizontal: spacing[4],
+  fontSize: 9,
 }
 
 export interface DetailScreenProps {
   navigation: any
 }
 
-export const DetailScreen: React.FunctionComponent<DetailScreenProps> = (props) => {
-  // const nextScreen = React.useMemo(() => () => props.navigation.navigate("demo"), [
-  //   props.navigation,
-  // ])
+export const DetailScreen: React.FunctionComponent<DetailScreenProps> = ({ navigation }) => {
+  const goBack = React.useMemo(() => () => navigation.navigate("home"), [navigation])
 
   return (
     <View style={FULL}>
       <Wallpaper />
-      <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
-        <Header headerTx="welcomeScreen.poweredBy" style={HEADER} titleStyle={HEADER_TITLE} />
-        <Text style={TITLE_WRAPPER}>
-          <Text style={TITLE} text="Your new app, " />
-          <Text style={ALMOST} text="almost" />
-          <Text style={TITLE} text="!" />
-        </Text>
-        <Text style={TITLE} preset="header" tx="welcomeScreen.readyForLaunch" />
-        <Image source={bowserLogo} style={BOWSER} />
-        <Text style={CONTENT}>
-          This probably isn't what your app is going to look like. Unless your designer handed you
-          this screen and, in that case, congrats! You're ready to ship.
-        </Text>
-        <Text style={CONTENT}>
-          For everyone else, this is where you'll see a live preview of your fully functioning app
-          using Ignite.
-        </Text>
+      <Screen unsafe preset="fixed" backgroundColor={color.transparent}>
+        <HeaderPrimary
+          containerStyle={HEADER}
+          centerComponent={TITLE}
+          leftComponent={{ ...ARROW_LEFT_ICON, onPress: goBack }}
+          rightComponent={{ ...SEARCH_ICON }}
+        />
+        <View
+          style={{ height: 200, backgroundColor: color.transparent }}
+        />
+        {/* <Header headerTx="welcomeScreen.poweredBy" style={HEADER} titleStyle={HEADER_TITLE} /> */}
+        <ScrollView
+          style={{ ...FULL, backgroundColor: color.transparent }}
+          showsVerticalScrollIndicator={false}>
+          <View
+            style={{
+              ...FULL,
+              padding: 15,
+            }}>
+            <View
+              style={{
+                justifyContent: "space-between",
+                flex: 1,
+                flexDirection: "row",
+                alignItems: "center",
+              }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Avatar
+                  containerStyle={{ marginRight: 10 }}
+                  rounded
+                  size="small"
+                  source={{
+                    uri: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+                  }}
+                />
+                <Text>This probably</Text>
+              </View>
+
+              <View>
+                <Text>This probably</Text>
+              </View>
+            </View>
+          </View>
+          <View
+            style={{
+              ...FULL,
+              backgroundColor: color.background,
+              borderTopLeftRadius: 40,
+              borderTopRightRadius: 40,
+              padding: 15,
+            }}>
+            <Text
+              style={{ color: "black", fontSize: 18, textAlign: "auto", marginBottom: 20 }}
+              preset="header"
+              text="Designer handed you this screen and, in that case, congrats!"
+            />
+            <Text style={CONTENT}>
+              This probably isn't what your app is going to look like. Unless your designer handed
+              you this screen and, in that case, congrats! You're ready to ship. \n. Unless your
+              designer handed you this screen and, in that case, congrats! You're ready to ship.
+            </Text>
+            <View style={{ backgroundColor: "#5D2555", borderRadius: 20 }}>
+              <Image source={bowserLogo} style={BOWSER} />
+            </View>
+
+            <Text style={CONTENT}>
+              For everyone else, this is where you'll see a live preview of your fully functioning
+              app using Ignite.
+            </Text>
+          </View>
+          <View style={{ flexDirection: "row", flex: 1 }}>
+            <Button style={CONTINUE} textStyle={CONTINUE_TEXT} tx="welcomeScreen.continue" />
+            <Button style={CONTINUE} textStyle={CONTINUE_TEXT} tx="welcomeScreen.continue" />
+            <Button style={CONTINUE} textStyle={CONTINUE_TEXT} tx="welcomeScreen.continue" />
+          </View>
+        </ScrollView>
       </Screen>
-      <SafeAreaView style={FOOTER}>
-        <View style={FOOTER_CONTENT}>
-          <Button
-            style={CONTINUE}
-            textStyle={CONTINUE_TEXT}
-            tx="welcomeScreen.continue"
-            onPress={() => props.navigation.navigate("demo")}
-          />
-        </View>
-      </SafeAreaView>
     </View>
   )
 }
