@@ -1,9 +1,9 @@
 import * as React from "react"
-import {TouchableOpacity} from "react-native"
-import {Text} from "../text/text"
-import {viewPresets, textPresets} from "./button.presets"
-import {ButtonProps} from "./button.props"
-import {mergeAll, flatten} from "ramda"
+import { TouchableOpacity } from "react-native"
+import { Text } from "../text/text"
+import { viewPresets, textPresets } from "./button.presets"
+import { ButtonProps } from "./button.props"
+import { mergeAll, flatten } from "ramda"
 
 /**
  * For your text displaying needs.

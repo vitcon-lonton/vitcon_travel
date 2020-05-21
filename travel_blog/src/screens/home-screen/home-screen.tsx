@@ -19,6 +19,8 @@ const LEFT_PADDING: ViewStyle = { paddingLeft: 15 }
 
 const POST_ITEM_WRAP: ViewStyle = { ...BACKGROUND, ...FULL_PADDING }
 
+const HEADER = { borderBottomWidth: 0 }
+
 const BOTTOM_HEADER_FLATLIST: ViewStyle = {
   ...BACKGROUND,
   marginTop: 15,
@@ -57,6 +59,7 @@ export const HomeScreen: React.FunctionComponent<HomeScreenProps> = (props) => {
       <HomeWallpaper text="World" />
       <Screen unsafe preset="fixed" backgroundColor={color.transparent}>
         <HeaderPrimary
+          containerStyle={HEADER}
           centerComponent={TITLE}
           leftComponent={{ ...ARROW_LEFT_ICON, onPress: nextScreen }}
           rightComponent={{ ...SEARCH_ICON, onPress: nextScreen }}
