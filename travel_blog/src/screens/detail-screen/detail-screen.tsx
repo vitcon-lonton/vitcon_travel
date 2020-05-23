@@ -1,81 +1,54 @@
-/* eslint-disable react-native/no-color-literals */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import * as React from "react"
-import {
-  View,
-  Image,
-  ViewStyle,
-  TextStyle,
-  ImageStyle,
-  Animated,
-  ScrollViewProps,
-  FlatList,
-} from "react-native"
-import { Button, Screen, Text, Wallpaper, HeaderPrimary, PostSharedOptions } from "../../components"
-import { color, spacing } from "../../theme"
-import { translate } from "../../i18n"
+import { View, ViewStyle, TextStyle, Animated, ScrollViewProps, FlatList, Image, ImageStyle } from "react-native"
 import { Avatar } from "react-native-elements"
 import { Modalize } from "react-native-modalize"
-import { screenHeight } from "../../utils/dimensions"
-import { PostItemFeed } from "../../components/post-item-feed/post-item-feed"
+import { merge } from "ramda"
+import { Screen, Text, HeaderPrimary, PostContent, PostItemFeed } from "../../components"
+import { color } from "../../theme"
+import { translate } from "../../i18n"
+import { screenHeight, screenWidth } from "../../utils/dimensions"
 
 const URI =
   "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1024724898%2F0x0.jpg"
 
-const bowserLogo = require("./bowser.png")
+const bgPost = require("./bg_post.jpg")
 
-const ARROW_LEFT_ICON = { icon: "arrow-left", onPress: null, color: color.background }
+const BACKGROUND: ImageStyle = { width: '100%', height: '100%', position: 'absolute' }
 
-const SEARCH_ICON = { size: 18, icon: "search", onPress: null, color: color.background }
+const ARROW_LEFT_ICON = { icon: "arrow-left", color: color.background }
 
-const TITLE = {
-  text: translate("welcomeScreen.poweredBy"),
-  style: { color: color.background },
-}
-
-const HEADER = { borderBottomWidth: 0 }
+const SEARCH_ICON = { size: 18, icon: "search", color: color.background }
 
 const FULL: ViewStyle = { flex: 1 }
 
-const TEXT: TextStyle = {
-  color: color.palette.white,
-  fontFamily: "Montserrat",
-}
-const BOLD: TextStyle = { fontWeight: "bold" }
+const HEADER = { borderBottomWidth: 0 }
 
-const BOWSER: ImageStyle = {
-  alignSelf: "center",
-  marginVertical: spacing[5],
-  maxWidth: "100%",
-}
-const CONTENT: TextStyle = {
-  ...TEXT,
-  color: "#BAB6C8",
-  fontSize: 15,
-  lineHeight: 22,
-  marginBottom: spacing[5],
-}
-const CONTINUE: ViewStyle = {
-  flex: 1,
-  margin: 10,
-  paddingVertical: spacing[2],
-  paddingHorizontal: spacing[2],
-  backgroundColor: "#5D2555",
-}
-const CONTINUE_TEXT: TextStyle = {
-  ...TEXT,
-  ...BOLD,
-  fontSize: 9,
+const TITLE = { text: translate("detailScreen.fashion"), style: { color: color.background } }
+
+const RELATED_POSTS: TextStyle = { marginBottom: 10, marginTop: 10, color: color.textColor, fontSize: 18 }
+
+const MODAL_SCROLLVIEW_PROPS: ScrollViewProps = {
+  showsVerticalScrollIndicator: false,
+  style: {
+    backgroundColor: color.background,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    padding: 15,
+  },
 }
 
 const POST_CONTAINER: ViewStyle = {
-  backgroundColor: "color.transparent",
+  backgroundColor: color.transparent,
   flexDirection: "row",
   paddingRight: 15,
   paddingLeft: 15,
   marginBottom: 15,
   alignItems: "center",
 }
+
+const TEXT_USER_POST_STYLE: TextStyle = { fontSize: 12, fontWeight: "600" }
 
 const USER_POST_CONTAINER: ViewStyle = {
   flex: 1,
@@ -84,8 +57,6 @@ const USER_POST_CONTAINER: ViewStyle = {
   justifyContent: "space-between",
   alignSelf: "stretch",
 }
-
-const TEXT_USER_POST_STYLE: TextStyle = { color: "white", fontSize: 12, fontWeight: "600" }
 
 const USER_AVATAR = (
   <Avatar
@@ -110,81 +81,12 @@ const USER_POST = (
   </View>
 )
 
-const HEADER_NAV = (
-  <HeaderPrimary
-    containerStyle={HEADER}
-    centerComponent={TITLE}
-    leftComponent={{ ...ARROW_LEFT_ICON }}
-    rightComponent={{ ...SEARCH_ICON }}
-  />
-)
-
-const MODAL_SCROLLVIEW_PROPS: ScrollViewProps = {
-  showsVerticalScrollIndicator: false,
-  style: {
-    backgroundColor: "white",
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
-    padding: 15,
-  },
-}
-
-const content = (
-  <View style={{}}>
-    <View style={{ ...FULL, padding: 15, paddingTop: 0 }}></View>
-    <View style={{ ...FULL, backgroundColor: color.background }}>
-      <Text
-        style={{ color: "black", fontSize: 18, textAlign: "auto", marginBottom: 20 }}
-        preset="header"
-        text="Designer handed you this screen and, in that case, congrats!"
-      />
-
-      <Text style={CONTENT}>
-        This probably isn't what your app is going to look like. Unless your designer handed you
-        this screen and, in that case, congrats! You're ready to ship. \n. Unless your designer
-        handed you this screen and, in that case, congrats! You're ready to ship.
-      </Text>
-
-      <View style={{ backgroundColor: "#5D2555", borderRadius: 20 }}>
-        <Image source={bowserLogo} style={BOWSER} />
-      </View>
-
-      <Text style={CONTENT}>
-        For everyone else, this is where you'll see a live preview of your fully functioning app
-        using Ignite.
-      </Text>
-    </View>
-    <Text style={{ color: "black", marginBottom: 10 }} preset="header" text="Share this post" />
-    <PostSharedOptions />
-    <Text
-      style={{ color: "black", marginBottom: 10, marginTop: 20 }}
-      preset="header"
-      text="Related posts"
-    />
-    <FlatList
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      data={[1, 2, 3, 4, 5]}
-      keyExtractor={(index) => `${index}`}
-      renderItem={({ item, index }) => (
-        <PostItemFeed
-          key={`${item}`}
-          style={{ marginLeft: index === 0 ? 0 : 15 }}
-          uri={URI}
-          text="A cross-platform Tab View component for React Native."
-          subText="2 hours ago"
-        />
-      )}
-    />
-  </View>
-)
-
 export interface DetailScreenProps {
   navigation: any
 }
 
 export const DetailScreen: React.FunctionComponent<DetailScreenProps> = ({ navigation }) => {
-  const goBack = React.useMemo(() => () => navigation.navigate("home"), [navigation])
+  const goBack = React.useMemo(() => () => navigation.goBack(), [navigation])
 
   const modalizeRef = React.useRef<Modalize>(null)
 
@@ -194,15 +96,21 @@ export const DetailScreen: React.FunctionComponent<DetailScreenProps> = ({ navig
 
   return (
     <View style={FULL}>
-      <Wallpaper />
+      <Image source={bgPost} style={BACKGROUND} />
+
       <Screen unsafe preset="fixed" backgroundColor={color.transparent}>
         <View style={FULL}>
-          <Animated.View style={{ ...HEADER, height: headerHeight, opacity: imageOpacity }}>
-            {HEADER_NAV}
+          <Animated.View style={merge(HEADER, { height: headerHeight, opacity: imageOpacity })}>
+            <HeaderPrimary
+              containerStyle={HEADER}
+              centerComponent={TITLE}
+              leftComponent={merge(ARROW_LEFT_ICON, { onPress: goBack })}
+              rightComponent={merge(SEARCH_ICON, { onPress: null })}
+            />
           </Animated.View>
           <Modalize
             ref={modalizeRef}
-            overlayStyle={{ backgroundColor: "transparent" }}
+            overlayStyle={{ backgroundColor: color.transparent }}
             HeaderComponent={USER_POST}
             alwaysOpen={screenHeight / 1.4}
             handlePosition="inside"
@@ -217,7 +125,30 @@ export const DetailScreen: React.FunctionComponent<DetailScreenProps> = ({ navig
             }}
             scrollViewProps={MODAL_SCROLLVIEW_PROPS}
             modalStyle={{ backgroundColor: color.transparent }}>
-            {content}
+            <View style={{}}>
+              <PostContent />
+
+              <Text style={RELATED_POSTS} preset="header" text="Related posts" />
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={[1, 2, 3, 4, 5]}
+                keyExtractor={(index) => `${index}`}
+                renderItem={({ item, index }) => (
+                  <PostItemFeed
+                    key={`${item}`}
+                    style={{
+                      marginLeft: index === 0 ? 0 : 10,
+                      width: screenWidth / 2.9,
+                      height: 160,
+                    }}
+                    uri={URI}
+                    text="A cross-platform Tab View component for React Native."
+                    subText="2 hours ago"
+                  />
+                )}
+              />
+            </View>
           </Modalize>
         </View>
       </Screen>

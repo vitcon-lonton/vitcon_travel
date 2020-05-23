@@ -2,12 +2,18 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from "react"
 import { View, ViewStyle, FlatList } from "react-native"
-import { Screen, HeaderPrimary, PostTile, HomeWallpaper } from "../../components"
+import {
+  Screen,
+  HeaderPrimary,
+  PostTile,
+  HomeWallpaper,
+  PostItemFeed,
+  PostUser,
+  PostPagination,
+} from "../../components"
 import { color } from "../../theme"
-import { PostItemFeed } from "../../components/post-item-feed/post-item-feed"
-import { PostUser } from "../../components/post-user/post-user"
-import { PostPagination } from "../../components/post-pagination/post-pagination"
 import { translate } from "../../i18n"
+import { screenWidth } from "../../utils/dimensions"
 
 const FULL: ViewStyle = { flex: 1 }
 
@@ -36,7 +42,7 @@ const FOOTER_FLATLIST: ViewStyle = {
   borderBottomLeftRadius: 25,
 }
 
-const ARROW_LEFT_ICON = { icon: "arrow-left", onPress: null }
+const ARROW_LEFT_ICON = { type: "entypo", icon: "unread", onPress: null }
 
 const SEARCH_ICON = { size: 18, icon: "search", onPress: null }
 
@@ -102,7 +108,7 @@ export const ListHeaderComponent: React.FunctionComponent<ListHeaderComponent> =
           renderItem={({ item, index }) => (
             <PostItemFeed
               key={`${item}`}
-              style={{ marginLeft: index === 0 ? 0 : 15 }}
+              style={{ marginLeft: index === 0 ? 0 : 15, width: screenWidth / 2.9, height: 160 }}
               uri={URI}
               text="A cross-platform Tab View component for React Native."
               subText="2 hours ago"

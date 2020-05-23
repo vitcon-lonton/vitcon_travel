@@ -8,7 +8,7 @@ import { merge, has } from "ramda"
 // static styles
 const CONTAINERS: ViewStyle = {
   paddingTop: spacing[7],
-  paddingBottom: spacing[4] + spacing[1],
+  // paddingBottom: spacing[4] + spacing[1],
   paddingHorizontal: 0,
   paddingLeft: 15,
   paddingRight: 15,

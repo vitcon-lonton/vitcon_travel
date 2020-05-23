@@ -1,111 +1,105 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-native/no-inline-styles */
 import * as React from "react"
-import { Image, ImageStyle, Platform, TextStyle, View, ViewStyle } from "react-native"
-import { BulletItem, Button, Header, Text, Screen, Wallpaper } from "../../components"
-import { color, spacing } from "../../theme"
-
-const logoIgnite = require("./logo-ignite.png")
-const heart = require("./heart.png")
+import { View, ViewStyle, FlatList } from "react-native"
+import { merge } from "ramda"
+import { Screen, HeaderPrimary, HomeWallpaper, PostItemFeed } from "../../components"
+import { color } from "../../theme"
+import { translate } from "../../i18n"
+import { screenHeight } from "../../utils/dimensions"
 
 const FULL: ViewStyle = { flex: 1 }
-const CONTAINER: ViewStyle = {
-  backgroundColor: color.transparent,
-  paddingHorizontal: spacing[4],
-}
-const DEMO: ViewStyle = {
-  paddingVertical: spacing[4],
-  paddingHorizontal: spacing[4],
-  backgroundColor: "#5D2555",
-}
-const BOLD: TextStyle = { fontWeight: "bold" }
-const DEMO_TEXT: TextStyle = {
-  ...BOLD,
-  fontSize: 13,
-  letterSpacing: 2,
-}
-const HEADER: TextStyle = {
-  paddingTop: spacing[3],
-  paddingBottom: spacing[5] - 1,
-  paddingHorizontal: 0,
-}
-const HEADER_TITLE: TextStyle = {
-  ...BOLD,
-  fontSize: 12,
-  lineHeight: 15,
-  textAlign: "center",
-  letterSpacing: 1.5,
-}
-const TITLE: TextStyle = {
-  ...BOLD,
-  fontSize: 28,
-  lineHeight: 38,
-  textAlign: "center",
-  marginBottom: spacing[5],
-}
-const TAGLINE: TextStyle = {
-  color: "#BAB6C8",
-  fontSize: 15,
-  lineHeight: 22,
-  marginBottom: spacing[4] + spacing[1],
-}
-const IGNITE: ImageStyle = {
-  marginVertical: spacing[6],
-  alignSelf: "center",
-}
-const LOVE_WRAPPER: ViewStyle = {
-  flexDirection: "row",
-  alignItems: "center",
-  alignSelf: "center",
-}
-const LOVE: TextStyle = {
-  color: "#BAB6C8",
-  fontSize: 15,
-  lineHeight: 22,
-}
-const HEART: ImageStyle = {
-  marginHorizontal: spacing[2],
-  width: 10,
-  height: 10,
-  resizeMode: "contain",
-}
-const HINT: TextStyle = {
-  color: "#BAB6C8",
-  fontSize: 12,
-  lineHeight: 15,
-  marginVertical: spacing[2],
-}
+
+const FULL_PADDING: ViewStyle = { padding: 15, paddingTop: 0 }
+
+const HEIGHT_POST = { height: screenHeight / 4.2 }
+
+const HEADER = { borderBottomWidth: 0 }
+
+const ARROW_LEFT_ICON = { icon: "arrow-left", onPress: null }
+
+const SEARCH_ICON = { size: 18, icon: "search", onPress: null }
+
+const TITLE = { text: translate("topicScreen.sports") }
+
+const URI =
+  "https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F1024724898%2F0x0.jpg"
 
 export interface TopicScreenProps {
   navigation: any
 }
 
 export const TopicScreen: React.FunctionComponent<TopicScreenProps> = (props) => {
-  const goBack = React.useMemo(() => () => props.navigation.goBack(), [props.navigation])
+  const nextScreen = React.useMemo(() => () => props.navigation.navigate("detail"), [
+    props.navigation,
+  ])
 
   return (
     <View style={FULL}>
-      <Wallpaper />
-      <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
-        <Header
-          headerTx="demoScreen.howTo"
-          leftIcon="back"
-          onLeftPress={goBack}
-          style={HEADER}
-          titleStyle={HEADER_TITLE}
+      <HomeWallpaper text="World" />
+      <Screen unsafe preset="fixed" backgroundColor={color.transparent}>
+        <HeaderPrimary
+          containerStyle={HEADER}
+          centerComponent={TITLE}
+          leftComponent={{ ...ARROW_LEFT_ICON, onPress: nextScreen }}
+          rightComponent={{ ...SEARCH_ICON, onPress: nextScreen }}
         />
-        <Text style={TITLE} preset="header" tx="demoScreen.title" />
-        <Text style={TAGLINE} tx="demoScreen.tagLine" />
-        <BulletItem text="Load up Reactotron!  You can inspect your app, view the events, interact, and so much more!" />
-        <BulletItem text="Integrated here, Navigation with State, TypeScript, Storybook, Solidarity, and i18n." />
-        <View>
-          <Button style={DEMO} textStyle={DEMO_TEXT} tx="demoScreen.reactotron" onPress={null} />
-          <Text style={HINT} tx={`demoScreen.${Platform.OS}ReactotronHint`} />
-        </View>
-        <Image source={logoIgnite} style={IGNITE} />
-        <View style={LOVE_WRAPPER}>
-          <Text style={LOVE} text="Made with" />
-          <Image source={heart} style={HEART} />
-          <Text style={LOVE} text="by Infinite Red" />
-        </View>
+
+        <FlatList
+          style={FULL_PADDING}
+          showsVerticalScrollIndicator={false}
+          data={[1, 2, 3, 4]}
+          keyExtractor={(index) => `${index}`}
+          renderItem={({ item, index }) => {
+            let component = (
+              <View key={`${item}`} style={{ flexDirection: "row", marginBottom: 10 }}>
+                <PostItemFeed
+                  style={merge({ flex: 5 }, HEIGHT_POST)}
+                  uri={URI}
+                  text="A cross-platform Tab View component for React Native."
+                  subText="2 hours ago"
+                />
+                <View style={{ width: 10 }} />
+                <View style={{ flex: 6 }}>
+                  <PostItemFeed
+                    style={{ flex: 1, height: "50%" }}
+                    uri={URI}
+                    text="A cross-platform Tab View component for React Native."
+                    subText="2 hours ago"
+                  />
+                  <View style={{ height: 10 }} />
+                  <PostItemFeed
+                    style={{ flex: 1, height: "50%" }}
+                    uri={URI}
+                    text="A cross-platform Tab View component for React Native."
+                    subText="2 hours ago"
+                  />
+                </View>
+              </View>
+            )
+
+            if (index % 2 === 0) {
+              component = (
+                <View key={`${item}`}
+                  style={merge(
+                    { width: "100%", height: screenHeight / 4.2, marginBottom: 10 },
+                    HEIGHT_POST,
+                  )}
+                >
+                  <PostItemFeed
+                    style={{ flex: 1 }}
+                    uri={URI}
+                    text="A cross-platform Tab View component for React Native."
+                    subText="2 hours ago"
+                  />
+                </View>
+
+              )
+            }
+
+            return component
+          }}
+        />
       </Screen>
     </View>
   )

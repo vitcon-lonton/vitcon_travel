@@ -3,11 +3,18 @@ import { StatusBar } from "react-native"
 import { ThemeProvider } from 'react-native-elements'
 import { NavigationContainer } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
-import { HomeScreen, WelcomeScreen, DetailScreen } from "./screens"
+import { HomeScreen, WelcomeScreen, DetailScreen, TopicScreen } from "./screens"
 
 declare let global: {HermesInternal: null | {}}
 
-const Stack = createStackNavigator()
+type RootStackParamList = {
+  welcome: null;
+  home: null;
+  detail: null;
+  topic: null
+};
+
+const Stack = createStackNavigator<RootStackParamList>()
 
 const App = () => {
   return (
@@ -15,10 +22,11 @@ const App = () => {
       <ThemeProvider>
         <NavigationContainer>
           <StatusBar barStyle="dark-content" />
-          <Stack.Navigator initialRouteName="detail" headerMode="none">
+          <Stack.Navigator initialRouteName="topic" headerMode="none">
             <Stack.Screen name="welcome" component={WelcomeScreen} />
             <Stack.Screen name="home" component={HomeScreen} />
             <Stack.Screen name="detail" component={DetailScreen} />
+            <Stack.Screen name="topic" component={TopicScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </ThemeProvider>

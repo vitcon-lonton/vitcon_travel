@@ -60,5 +60,5 @@ export const color = {
    * Storybook text color for stories that display Text components against the
    * white background
    */
-  storybookTextColor: palette.black,
+  textColor: palette.black,
 }
