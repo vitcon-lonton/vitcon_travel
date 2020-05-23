@@ -2,9 +2,9 @@ import * as React from "react"
 import { View, ViewStyle, TextStyle } from "react-native"
 import { HeaderProps } from "./header.props"
 import { Text } from "../text/text"
-import { Icon } from "../icon/icon"
+import { Icon } from "react-native-elements"
 import { Button } from "../button/button"
-import { spacing } from "../../theme"
+import { spacing, palette } from "../../theme"
 import { translate } from "../../i18n/"
 
 // static styles
@@ -41,7 +41,8 @@ export const Header: React.FunctionComponent<HeaderProps> = (props) => {
     <View style={{ ...ROOT, ...style }}>
       {leftIcon ? (
         <Button preset="link" onPress={onLeftPress}>
-          <Icon icon={leftIcon} />
+          <Icon name={leftIcon} color={palette.black} type="font-awesome-5" />
+          />
         </Button>
       ) : (
         <View style={LEFT} />
@@ -51,7 +52,7 @@ export const Header: React.FunctionComponent<HeaderProps> = (props) => {
       </View>
       {rightIcon ? (
         <Button preset="link" onPress={onRightPress}>
-          <Icon icon={rightIcon} />
+          <Icon name={rightIcon} color={palette.black} type="font-awesome-5" />
         </Button>
       ) : (
         <View style={RIGHT} />

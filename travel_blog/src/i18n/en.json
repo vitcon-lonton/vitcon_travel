@@ -12,6 +12,15 @@
     "readyForLaunch": "Ready for launch.",
     "continue": "CONTINUE"
   },
+  "homeScreen": {
+    "news": "News"
+  },
+  "detailScreen": {
+    "fashion": "Fashion"
+  },
+  "topicScreen": {
+    "sports": "Sports"
+  },
   "demoScreen": {
     "howTo": "HOW TO",
     "title": "What’s In This Stack?",
